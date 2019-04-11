@@ -1,0 +1,15 @@
+D:\Learn\MicroService\Items.Api\Items.Api\obj\Debug\netcoreapp2.1\Items.Api.csproj.CoreCompileInputs.cache
+D:\Learn\MicroService\Items.Api\Items.Api\obj\Debug\netcoreapp2.1\Items.Api.AssemblyInfoInputs.cache
+D:\Learn\MicroService\Items.Api\Items.Api\obj\Debug\netcoreapp2.1\Items.Api.AssemblyInfo.cs
+D:\Learn\MicroService\Items.Api\Items.Api\bin\Debug\netcoreapp2.1\Items.Api.deps.json
+D:\Learn\MicroService\Items.Api\Items.Api\bin\Debug\netcoreapp2.1\Items.Api.runtimeconfig.json
+D:\Learn\MicroService\Items.Api\Items.Api\bin\Debug\netcoreapp2.1\Items.Api.runtimeconfig.dev.json
+D:\Learn\MicroService\Items.Api\Items.Api\bin\Debug\netcoreapp2.1\Items.Api.dll
+D:\Learn\MicroService\Items.Api\Items.Api\bin\Debug\netcoreapp2.1\Items.Api.pdb
+D:\Learn\MicroService\Items.Api\Items.Api\obj\Debug\netcoreapp2.1\Items.Api.csprojAssemblyReference.cache
+D:\Learn\MicroService\Items.Api\Items.Api\obj\Debug\netcoreapp2.1\Items.Api.RazorAssemblyInfo.cache
+D:\Learn\MicroService\Items.Api\Items.Api\obj\Debug\netcoreapp2.1\Items.Api.RazorAssemblyInfo.cs
+D:\Learn\MicroService\Items.Api\Items.Api\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+D:\Learn\MicroService\Items.Api\Items.Api\obj\Debug\netcoreapp2.1\Items.Api.RazorTargetAssemblyInfo.cache
+D:\Learn\MicroService\Items.Api\Items.Api\obj\Debug\netcoreapp2.1\Items.Api.dll
+D:\Learn\MicroService\Items.Api\Items.Api\obj\Debug\netcoreapp2.1\Items.Api.pdb
