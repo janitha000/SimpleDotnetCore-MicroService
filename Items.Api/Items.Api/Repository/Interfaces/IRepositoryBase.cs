@@ -9,8 +9,8 @@ namespace Items.Api.Repository.Interfaces
 {
     public interface IRepositryBase<T> where T : class, IEntityBase, new()
     {
-        IEnumerable<T> GetAll();
-        T GetSingle(string id);
+        Task<List<T>> GetAll();
+        Task<T> GetSingle(string id);
         T GetSingle(Expression<Func<T, bool>> predicate);
         IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate);
         void Add(T entity);

@@ -23,13 +23,13 @@ namespace Items.Api.Repository.Generic
         public virtual void Add(T entity)
         {
             EntityEntry dbEntityEntry = _context.Entry<T>(entity);
-            _context.Set<T>().Add(entity);
+            _context.Set<T>().AddAsync(entity);
             this.Commit();
         }
 
         public virtual void Commit()
         {
-            _context.SaveChanges();
+            _context.SaveChangesAsync();
         }
 
         public virtual void Delete(T entity)
@@ -52,14 +52,14 @@ namespace Items.Api.Repository.Generic
             return _context.Set<T>().Where(predicate);
         }
 
-        public IEnumerable<T> GetAll()
+        public Task<List<T>> GetAll()
         {
-            return _context.Set<T>().AsEnumerable();
+            return _context.Set<T>().ToListAsync();
         }
 
-        public T GetSingle(string id)
+        public Task<T> GetSingle(string id)
         {
-            return _context.Set<T>().FirstOrDefault(x => x.Id == id);
+            return _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public T GetSingle(Expression<Func<T, bool>> predicate)

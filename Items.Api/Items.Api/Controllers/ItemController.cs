@@ -1,5 +1,6 @@
 ﻿using Items.Api.Entities;
 using Items.Api.Repository.Interfaces;
+using Items.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,12 +14,12 @@ namespace Items.Api.Controllers
     [ApiController]
     public class ItemController : ControllerBase
     {
-        private readonly IItemRepository repository;
+        private readonly IItemService itemService;
         private readonly ILogger logger;
 
-        public ItemController(IItemRepository repo, ILogger<ItemController> _logger)
+        public ItemController(IItemService service, ILogger<ItemController> _logger)
         {
-            this.repository = repo;
+            this.itemService = service;
             this.logger = _logger;
         }
 
@@ -28,14 +29,14 @@ namespace Items.Api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public ActionResult<Item> GetItem(string id)
+        public async Task<ActionResult<ApiResult>> GetItem(string id)
         {
             try
             {
                 if (id != null)
                 {
-                    Item item = repository.GetSingle(id);
-                    return Ok(item);
+                    ApiResult result = await itemService.GetSingle(id);
+                    return Ok(result);
                 }
                 else
                 {
@@ -51,18 +52,36 @@ namespace Items.Api.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult PostItem([FromBody] Item item)
+        [HttpGet]
+        public async Task<ActionResult<ApiResult>> GetAllItems()
         {
             try
             {
-                repository.Add(item);
-                return Created("Item created", item);
+                ApiResult result = await itemService.GetAllItemsAsync();
+                if (result.Status)
+                    return Ok(result);
+                else
+                    return BadRequest(result);
+            }
+            catch(Exception ex)
+            {
+                logger.LogError(ex, "Exception when getting all items");
+                return Ok(ex);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult<ApiResult> PostItem([FromBody] Item item)
+        {
+            try
+            {
+                ApiResult result = itemService.PostItem(item);
+                return Created("item created", result);
             }
             catch(Exception ex)
             {
                 logger.LogError(ex, "Exception when getting item");
-                return null;
+                return Ok(ex);
             }
 
         }
