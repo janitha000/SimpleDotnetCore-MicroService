@@ -1,0 +1,14 @@
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\obj\Debug\netcoreapp2.1\Items.Authentication.csproj.CoreCompileInputs.cache
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\obj\Debug\netcoreapp2.1\Items.Authentication.AssemblyInfoInputs.cache
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\obj\Debug\netcoreapp2.1\Items.Authentication.AssemblyInfo.cs
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\bin\Debug\netcoreapp2.1\Items.Authentication.deps.json
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\bin\Debug\netcoreapp2.1\Items.Authentication.runtimeconfig.json
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\bin\Debug\netcoreapp2.1\Items.Authentication.runtimeconfig.dev.json
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\bin\Debug\netcoreapp2.1\Items.Authentication.dll
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\bin\Debug\netcoreapp2.1\Items.Authentication.pdb
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\obj\Debug\netcoreapp2.1\Items.Authentication.RazorAssemblyInfo.cache
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\obj\Debug\netcoreapp2.1\Items.Authentication.RazorAssemblyInfo.cs
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\obj\Debug\netcoreapp2.1\Items.Authentication.RazorTargetAssemblyInfo.cache
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\obj\Debug\netcoreapp2.1\Items.Authentication.dll
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\obj\Debug\netcoreapp2.1\Items.Authentication.pdb
+D:\Learn\MicroService\Items.Authentication\Items.Authentication\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
