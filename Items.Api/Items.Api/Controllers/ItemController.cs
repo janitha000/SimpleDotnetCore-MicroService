@@ -35,7 +35,7 @@ namespace Items.Api.Controllers
             {
                 if (id != null)
                 {
-                    ApiResult result = await itemService.GetSingle(id);
+                    ApiResult result = await itemService.GetSingleAsync(id);
                     return Ok(result);
                 }
                 else
@@ -52,6 +52,10 @@ namespace Items.Api.Controllers
 
         }
 
+        /// <summary>
+        /// Get all items 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<ApiResult>> GetAllItems()
         {
@@ -70,12 +74,17 @@ namespace Items.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Post item
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult<ApiResult> PostItem([FromBody] Item item)
+        public async Task<ActionResult<ApiResult>> PostItem([FromBody] Item item)
         {
             try
             {
-                ApiResult result = itemService.PostItem(item);
+                ApiResult result = await itemService.PostItem(item);
                 return Created("item created", result);
             }
             catch(Exception ex)

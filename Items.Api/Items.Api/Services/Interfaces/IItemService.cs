@@ -9,8 +9,8 @@ namespace Items.Api.Services.Interfaces
     public interface IItemService
     {
         Task<ApiResult> GetAllItemsAsync();
-        Task<ApiResult> GetSingle(string id);
-        ApiResult PostItem(Item item);
+        Task<ApiResult> GetSingleAsync(string id);
+        Task<ApiResult> PostItem(Item item);
         Task<ApiResult> UpdateItem();
         Task<ApiResult> DeleteItem();
     }

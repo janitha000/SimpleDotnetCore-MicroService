@@ -20,10 +20,10 @@ namespace Items.Api.Repository.Generic
             _context = context;
         }
 
-        public virtual void Add(T entity)
+        public async Task Add(T entity)
         {
             EntityEntry dbEntityEntry = _context.Entry<T>(entity);
-            _context.Set<T>().AddAsync(entity);
+            await _context.Set<T>().AddAsync(entity);
             this.Commit();
         }
 
@@ -52,14 +52,16 @@ namespace Items.Api.Repository.Generic
             return _context.Set<T>().Where(predicate);
         }
 
-        public Task<List<T>> GetAll()
+        public async Task<List<T>> GetAll()
         {
-            return _context.Set<T>().ToListAsync();
+            List<T> entities = await _context.Set<T>().ToListAsync();
+            return entities;
         }
 
-        public Task<T> GetSingle(string id)
+        public async Task<T> GetSingle(string id)
         {
-            return _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            T entity = await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            return entity;
         }
 
         public T GetSingle(Expression<Func<T, bool>> predicate)

@@ -49,7 +49,7 @@ namespace Items.Api.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ApiResult> GetSingle(string id)
+        public async Task<ApiResult> GetSingleAsync(string id)
         {
             try
             {
@@ -68,11 +68,11 @@ namespace Items.Api.Services
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public ApiResult PostItem(Item item)
+        public async Task<ApiResult> PostItem(Item item)
         {
             try
             {
-                repository.Add(item);
+                await repository.Add(item);
                 return new ApiResult(true, item);
             }
             catch(Exception ex)

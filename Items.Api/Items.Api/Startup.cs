@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Items.Api.Repository;
 using Items.Api.Repository.Context;
 using Items.Api.Repository.Interfaces;
+using Items.Api.Services;
+using Items.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +36,8 @@ namespace Items.Api
 
 
             services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IItemService, ItemService>();
+            
 
             services.AddSwaggerGen(options =>
             {
