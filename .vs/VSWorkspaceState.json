@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Items.Api",
+    "\\Items.Api\\Items.Api",
+    "\\Items.Api\\Items.Api\\Controllers",
+    "\\Items.Api\\Items.Api\\Services",
+    "\\Items.Api\\Items.Api\\Services\\Interfaces",
+    "\\Items.Authentication\\Items.Authentication",
+    "\\Items.Authentication\\Items.Authentication\\Controllers",
+    "\\Items.Authentication\\Items.Authentication\\Services"
+  ],
+  "SelectedNode": "\\Items.Api\\Items.Api\\Services\\Interfaces\\IItemService.cs",
+  "PreviewInSolutionExplorer": false
+}
