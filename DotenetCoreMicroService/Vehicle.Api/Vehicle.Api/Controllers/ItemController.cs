@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vehicle.Api.HyperMedia;
 
 namespace Vehicle.Api.Controllers
 {
@@ -28,7 +29,7 @@ namespace Vehicle.Api.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetItem")]
         public async Task<ActionResult<ApiResult>> GetItem(string id)
         {
             try
@@ -36,7 +37,11 @@ namespace Vehicle.Api.Controllers
                 if (id != null)
                 {
                     ApiResult result = await itemService.GetSingleAsync(id);
-                    return Ok(result);
+                    var link = new LinkHelper<ApiResult>(result);
+                    link.Links.Add(new Link { Href = Url.Link("GetItem", new { id }), Method = "GET" });
+                    link.Links.Add(new Link { Href = Url.Link("AddItem", new { id }), Method = "POST" });
+                    
+                    return Ok(link);
                 }
                 else
                 {
@@ -79,7 +84,7 @@ namespace Vehicle.Api.Controllers
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost(Name ="AddItem")]
         public async Task<ActionResult<ApiResult>> PostItem([FromBody] Item item)
         {
             try

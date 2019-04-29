@@ -36,8 +36,14 @@ namespace Vehicle.Api
 
 
             services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IDriverRepository, DriverRepository>();
+
             services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<IDriverService, DriverService>();
+
             
+
+
 
             services.AddSwaggerGen(options =>
             {

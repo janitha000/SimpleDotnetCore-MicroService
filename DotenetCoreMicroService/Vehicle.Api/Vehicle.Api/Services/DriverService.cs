@@ -20,9 +20,19 @@ namespace Vehicle.Api.Services
             logger = _logger ?? throw new ArgumentNullException(nameof(_logger));
         }
 
-        public Task<ApiResult> DeleteDriver()
+        public async Task<ApiResult> DeleteDriver(Driver driver)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await repositoy.Delete(driver);
+                return new ApiResult(true, "Driver deleted");
+
+            }
+            catch(Exception ex)
+            {
+                logger.LogError("Error when deleting driver ", ex);
+                return new ApiResult(false, ex);
+            }
         }
 
         /// <summary>
@@ -81,7 +91,7 @@ namespace Vehicle.Api.Services
             }
         }
 
-        public Task<ApiResult> UpdateDriver()
+        public Task<ApiResult> UpdateDriver(Driver driver)
         {
             throw new NotImplementedException();
         }

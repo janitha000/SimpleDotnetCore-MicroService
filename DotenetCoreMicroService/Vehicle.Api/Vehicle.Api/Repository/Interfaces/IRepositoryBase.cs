@@ -14,10 +14,10 @@ namespace Vehicle.Api.Repository.Interfaces
         T GetSingle(Expression<Func<T, bool>> predicate);
         IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate);
         Task Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
-        void DeleteWhere(Expression<Func<T, bool>> predicate);
-        void Commit();
+        Task Update(T entity);
+        Task Delete(T entity);
+        Task DeleteWhere(Expression<Func<T, bool>> predicate);
+        Task Commit();
 
 
     }

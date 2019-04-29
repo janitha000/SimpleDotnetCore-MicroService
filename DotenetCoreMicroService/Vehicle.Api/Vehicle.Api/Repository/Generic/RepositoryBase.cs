@@ -24,27 +24,29 @@ namespace Vehicle.Api.Repository.Generic
         {
             EntityEntry dbEntityEntry = _context.Entry<T>(entity);
             await _context.Set<T>().AddAsync(entity);
-            this.Commit();
+            await this.Commit();
         }
 
-        public virtual void Commit()
+        public async Task Commit()
         {
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
-        public virtual void Delete(T entity)
+        public async Task Delete(T entity)
         {
             EntityEntry dbEntityEntry = _context.Entry<T>(entity);
             dbEntityEntry.State = EntityState.Deleted;
+            await this.Commit();
         }
 
-        public void DeleteWhere(Expression<Func<T, bool>> predicate)
+        public async Task DeleteWhere(Expression<Func<T, bool>> predicate)
         {
             IEnumerable<T> entities = _context.Set<T>().Where(predicate);
             foreach (var entity in entities)
             {
                 _context.Entry<T>(entity).State = EntityState.Deleted;
             }
+            await this.Commit();
         }
 
         public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
@@ -69,10 +71,11 @@ namespace Vehicle.Api.Repository.Generic
             return _context.Set<T>().FirstOrDefault(predicate);
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
             EntityEntry dbEntityEntry = _context.Entry<T>(entity);
             dbEntityEntry.State = EntityState.Modified;
+            await this.Commit();
         }
     }
 }

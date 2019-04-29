@@ -11,8 +11,8 @@ namespace Vehicle.Api.Services.Interfaces
         Task<ApiResult> GetAllAsync();
         Task<ApiResult> Get(string id);
         Task<ApiResult> PostDriver(Driver driver);
-        Task<ApiResult> UpdateDriver();
-        Task<ApiResult> DeleteDriver();
+        Task<ApiResult> UpdateDriver(Driver driver);
+        Task<ApiResult> DeleteDriver(Driver driver);
 
     }
 }
