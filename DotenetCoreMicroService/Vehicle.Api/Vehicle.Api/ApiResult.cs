@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Vehicle.Authentication
+namespace Vehicle.Api
 {
     public class ApiResult
     {
@@ -11,7 +11,7 @@ namespace Vehicle.Authentication
         public string Message { get; set; }
         public object ApiObject { get; set; }
 
-        public ApiResult(bool status, string message, object apiObject = null)
+        public ApiResult(bool status, string message , object apiObject = null)
         {
             this.Status = status;
             this.Message = message;

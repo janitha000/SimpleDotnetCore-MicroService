@@ -1,10 +1,10 @@
-﻿using Items.Authentication.Entities;
+﻿using Vehicle.Authentication.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Items.Authentication.Services
+namespace Vehicle.Authentication.Services
 {
     public interface IAuthenticationService
     {

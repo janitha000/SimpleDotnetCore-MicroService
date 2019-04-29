@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Vehicle.Authentication.Services;
+using Vehicle.Api.Repository;
+using Vehicle.Api.Repository.Context;
+using Vehicle.Api.Repository.Interfaces;
+using Vehicle.Api.Services;
+using Vehicle.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Vehicle.Authentication
+namespace Vehicle.Api
 {
     public class Startup
     {
@@ -26,14 +31,25 @@ namespace Vehicle.Authentication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication("Bearer").AddJwtBearer(options =>
-            {
-                options.Audience = "e63r39b1umh8n55p5qhhn72t8";
-                options.Authority = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_fEiQUmfRQ";
-            });
-
-            services.AddScoped<IAuthenticationService, CognitoAuthenticationService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IItemService, ItemService>();
+            
+
+            services.AddSwaggerGen(options =>
+            {
+                options.DescribeAllEnumsAsStrings();
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "Learning Container - Item HTTP API",
+                    Version = "v1",
+                    Description = "The Catalog Microservice HTTP API. This is a Data-Driven/CRUD microservice sample",
+                    TermsOfService = "Terms Of Service"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

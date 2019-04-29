@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Vehicle.Authentication
+namespace Vehicle.Basket
 {
     public class Program
     {

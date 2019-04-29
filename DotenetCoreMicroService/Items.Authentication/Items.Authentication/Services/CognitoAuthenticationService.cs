@@ -1,12 +1,12 @@
 ﻿using Amazon;
 using Amazon.CognitoIdentityProvider;
 using Amazon.CognitoIdentityProvider.Model;
-using Items.Authentication.Entities;
+using Vehicle.Authentication.Entities;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Items.Authentication.Services
+namespace Vehicle.Authentication.Services
 {
     public class CognitoAuthenticationService : IAuthenticationService
     {

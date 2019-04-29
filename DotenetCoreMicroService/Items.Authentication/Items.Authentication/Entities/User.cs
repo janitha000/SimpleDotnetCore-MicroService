@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Items.Authentication.Entities
+namespace Vehicle.Authentication.Entities
 {
     public class User
     {
