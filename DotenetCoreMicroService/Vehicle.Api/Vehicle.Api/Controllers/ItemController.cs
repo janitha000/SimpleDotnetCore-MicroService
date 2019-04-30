@@ -1,13 +1,10 @@
-﻿using Vehicle.Api.Entities;
-using Vehicle.Api.Repository.Interfaces;
-using Vehicle.Api.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Vehicle.Api.Entities;
 using Vehicle.Api.HyperMedia;
+using Vehicle.Api.Services.Interfaces;
 
 namespace Vehicle.Api.Controllers
 {
@@ -42,7 +39,7 @@ namespace Vehicle.Api.Controllers
                     var link = new LinkHelper<ApiResult>(result);
                     link.Links.Add(new Link { Href = Url.Link("GetItem", new { id }), Method = "GET" });
                     link.Links.Add(new Link { Href = Url.Link("AddItem", new { id }), Method = "POST" });
-                    
+
                     return Ok(link);
                 }
                 else
@@ -51,7 +48,7 @@ namespace Vehicle.Api.Controllers
                     return BadRequest("Item id is null");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.LogError(ex, "Exception when getting item");
                 return BadRequest(ExceptionHelper.ProcessError(ex));
@@ -73,7 +70,7 @@ namespace Vehicle.Api.Controllers
                 else
                     return BadRequest(result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.LogError(ex, "Exception when getting all items");
                 return Ok(ex);
@@ -85,19 +82,52 @@ namespace Vehicle.Api.Controllers
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        [HttpPost(Name ="AddItem")]
+        [HttpPost(Name = "AddItem")]
         public async Task<ActionResult<ApiResult>> PostItem([FromBody] Item item)
         {
-            try
+            if (ModelState.IsValid)
             {
-                ApiResult result = await itemService.PostItem(item);
-                return Created("item created", result);
+                try
+                {
+                    ApiResult result = await itemService.PostItem(item);
+                    return Created("item created", result);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "Exception when getting item");
+                    return Ok(ex);
+                }
             }
-            catch(Exception ex)
+            return BadRequest();
+
+        }
+
+        /// <summary>
+        /// Update item
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        [HttpPut(Name = "UpdateItem")]
+        public async Task<ActionResult<ApiResult>> UpdateItem([FromBody] Item item)
+        {
+
+            if (ModelState.IsValid)
             {
-                logger.LogError(ex, "Exception when getting item");
-                return Ok(ex);
+                try
+                {
+                    ApiResult result = await itemService.UpdateItem(item);
+                    return Ok(result);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "Exception when updating item");
+                    return Ok(ex);
+                }
+
             }
+            return BadRequest();
+
+
 
         }
     }

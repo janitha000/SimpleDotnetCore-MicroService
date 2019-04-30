@@ -17,6 +17,7 @@ namespace Vehicle.Api.Entities
         public string LastName { get; set; }
         [Required]
         public string NIC { get; set; }
+        public ICollection<Vehicle> Vehicles { get; set; }
 
         public string GetGUID()
         {

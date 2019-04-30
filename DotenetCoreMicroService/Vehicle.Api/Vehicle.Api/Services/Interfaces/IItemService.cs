@@ -11,7 +11,7 @@ namespace Vehicle.Api.Services.Interfaces
         Task<ApiResult> GetAllItemsAsync();
         Task<ApiResult> GetSingleAsync(string id);
         Task<ApiResult> PostItem(Item item);
-        Task<ApiResult> UpdateItem();
-        Task<ApiResult> DeleteItem();
+        Task<ApiResult> UpdateItem(Item item);
+        Task<ApiResult> DeleteItem(string id);
     }
 }

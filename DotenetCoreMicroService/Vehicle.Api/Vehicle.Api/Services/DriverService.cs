@@ -20,6 +20,11 @@ namespace Vehicle.Api.Services
             logger = _logger ?? throw new ArgumentNullException(nameof(_logger));
         }
 
+        /// <summary>
+        /// Delete driver
+        /// </summary>
+        /// <param name="driver"></param>
+        /// <returns></returns>
         public async Task<ApiResult> DeleteDriver(Driver driver)
         {
             try
@@ -81,6 +86,7 @@ namespace Vehicle.Api.Services
         {
             try
             {
+                driver.GUID = driver.GetGUID();
                 await repositoy.Add(driver);
                 return new ApiResult(true, driver);
             }
@@ -91,9 +97,24 @@ namespace Vehicle.Api.Services
             }
         }
 
-        public Task<ApiResult> UpdateDriver(Driver driver)
+        /// <summary>
+        /// Update driver details
+        /// </summary>
+        /// <param name="driver"></param>
+        /// <returns></returns>
+        public async Task<ApiResult> UpdateDriver(Driver driver)
         {
-            throw new NotImplementedException();
+            try
+            {
+                driver.GUID = driver.GetGUID();
+                await repositoy.Update(driver);
+                return new ApiResult(true, driver);
+            }
+            catch(Exception ex)
+            {
+                logger.LogError("Error when updating a driver from service", ex);
+                return new ApiResult(false, ex);
+            }
         }
     }
 }

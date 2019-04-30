@@ -20,7 +20,7 @@ namespace Vehicle.Api.Services
             this.logger = _logger ?? throw new ArgumentNullException(nameof(_logger));;
         }
 
-        public Task<ApiResult> DeleteItem()
+        public Task<ApiResult> DeleteItem(string id)
         {
             throw new NotImplementedException();
         }
@@ -89,9 +89,19 @@ namespace Vehicle.Api.Services
             }
         }
 
-        public Task<ApiResult> UpdateItem()
+        public async Task<ApiResult> UpdateItem(Item item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                item.GUID = item.GetGUID();
+                await repository.Update(item);
+                return new ApiResult(true, item);
+            }
+            catch(Exception ex)
+            {
+                logger.LogError(ex, "Exception when adding to repository");
+                return new ApiResult(false, ex);
+            }
         }
     }
 }
