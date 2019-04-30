@@ -37,6 +37,8 @@ namespace Vehicle.Api.Controllers
                 if (id != null)
                 {
                     ApiResult result = await itemService.GetSingleAsync(id);
+                    if (result == null)
+                        return NotFound(new ApiResult(true, "item not found"));
                     var link = new LinkHelper<ApiResult>(result);
                     link.Links.Add(new Link { Href = Url.Link("GetItem", new { id }), Method = "GET" });
                     link.Links.Add(new Link { Href = Url.Link("AddItem", new { id }), Method = "POST" });
@@ -52,9 +54,8 @@ namespace Vehicle.Api.Controllers
             catch(Exception ex)
             {
                 logger.LogError(ex, "Exception when getting item");
-                return null;
+                return BadRequest(ExceptionHelper.ProcessError(ex));
             }
-
         }
 
         /// <summary>

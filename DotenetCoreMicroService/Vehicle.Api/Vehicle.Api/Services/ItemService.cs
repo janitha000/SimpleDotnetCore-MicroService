@@ -54,7 +54,13 @@ namespace Vehicle.Api.Services
             try
             {
                 Item item = await repository.GetSingle(id);
-                return new ApiResult(true, item);
+                if(item != null)
+                    return new ApiResult(true, item);
+                else
+                {
+                    logger.LogWarning("Item returned is null");
+                    return null;
+                }
             }
             catch (Exception ex)
             {
@@ -72,6 +78,7 @@ namespace Vehicle.Api.Services
         {
             try
             {
+                item.GUID = item.GetGUID();
                 await repository.Add(item);
                 return new ApiResult(true, item);
             }

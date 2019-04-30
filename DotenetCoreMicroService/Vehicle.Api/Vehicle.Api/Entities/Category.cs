@@ -9,5 +9,11 @@ namespace Vehicle.Api.Entities
     {
         public string Id { get; set; }
         public string Type { get; set; }
+        public string GUID { get; set; }
+
+        public string GetGUID()
+        {
+            return Guid.NewGuid().ToString();
+        }
     }
 }
