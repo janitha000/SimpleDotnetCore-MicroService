@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using AutoMapper;
 
 namespace Vehicle.Api
 {
@@ -31,6 +32,8 @@ namespace Vehicle.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -41,9 +44,9 @@ namespace Vehicle.Api
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IDriverService, DriverService>();
 
-            
 
 
+            services.AddAutoMapper();
 
             services.AddSwaggerGen(options =>
             {

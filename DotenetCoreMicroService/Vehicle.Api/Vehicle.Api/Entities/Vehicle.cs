@@ -6,7 +6,7 @@ using Vehicle.Api.Entities.Enums;
 
 namespace Vehicle.Api.Entities
 {
-    public class Vehicle : IEntityBase
+    public class VehicleEntity : IEntityBase
     {
         public string GUID { get; set; }
         public string Id { get; set; }

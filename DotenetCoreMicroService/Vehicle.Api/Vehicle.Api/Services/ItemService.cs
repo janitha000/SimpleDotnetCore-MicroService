@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Vehicle.Api.Resources;
 
 namespace Vehicle.Api.Services
 {
@@ -13,11 +15,13 @@ namespace Vehicle.Api.Services
     {
         private readonly IItemRepository repository;
         private ILogger logger;
+        private readonly IMapper mapper;
 
-        public ItemService(IItemRepository repo, ILogger<ItemService> _logger)
+        public ItemService(IItemRepository repo, ILogger<ItemService> _logger, IMapper _mapper)
         {
             this.repository = repo ?? throw new ArgumentNullException(nameof(repo)); 
             this.logger = _logger ?? throw new ArgumentNullException(nameof(_logger));;
+            this.mapper = _mapper ?? throw new ArgumentNullException(nameof(_mapper)); ;
         }
 
         public Task<ApiResult> DeleteItem(string id)
@@ -55,7 +59,10 @@ namespace Vehicle.Api.Services
             {
                 Item item = await repository.GetSingle(id);
                 if(item != null)
-                    return new ApiResult(true, item);
+                {
+                    var resource = mapper.Map<Item, ItemResource>(item);
+                    return new ApiResult(true, resource);
+                }
                 else
                 {
                     logger.LogWarning("Item returned is null");

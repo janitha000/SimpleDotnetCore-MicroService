@@ -1,27 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using Vehicle.Api.Entities;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Vehicle.Api.Entities
+namespace Vehicle.Api.Resources
 {
-    public class Driver : IEntityBase
+    public class DriverResource
     {
-        [Required]
         public string GUID { get; set; }
-        [Required]
-        public string Id { get; set; }
-        [Required]
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [Required]
         public string NIC { get; set; }
         public ICollection<VehicleEntity> Vehicles { get; set; }
 
-        public string GetGUID()
-        {
-            return Guid.NewGuid().ToString();
-        }
     }
 }
