@@ -49,7 +49,7 @@ namespace Vehicle.Api.Controllers
                 if (!result.Success)
                 {
                     logger.LogError("Posting driver not successfull");
-                    return BadRequest(result.Message);
+                    return BadRequest(result.ErrorMessage);
                 }
 
                 return Ok(result.ObjectEntity);
@@ -80,7 +80,7 @@ namespace Vehicle.Api.Controllers
                 if(!result.Success)
                 {
                     logger.LogError("Posting driver not successfull");
-                    return BadRequest(result.Message);
+                    return BadRequest(result.ErrorMessage);
                 }
 
                 return Ok(result.ObjectEntity);

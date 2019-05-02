@@ -10,13 +10,13 @@ namespace Vehicle.Api.Communication
     public  class BaseResponse<T> where T :  class, IBaseResource, new()
     {
         public bool Success { get; protected set; }
-        public string Message { get; protected set; }
+        public string ErrorMessage { get; protected set; }
         public T ObjectEntity { get; set; }
 
         private BaseResponse(bool success, string message, T objectEntity)
         {
             Success = success;
-            Message = message;
+            ErrorMessage = message;
             ObjectEntity = objectEntity;
         }
 

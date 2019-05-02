@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vehicle.Api.Repository.UnitOfWork;
 
 namespace Vehicle.Api.Repository
 {
     public class ItemRepository : Repositorybase<Item> , IItemRepository
     {
-        public ItemRepository(DatabaseContext context) : base(context)
+        public ItemRepository(DatabaseContext context, IUnitOfWork unitOfWork) : base(context, unitOfWork)
         {
         }
 

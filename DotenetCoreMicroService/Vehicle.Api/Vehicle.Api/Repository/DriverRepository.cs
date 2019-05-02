@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vehicle.Api.Repository.UnitOfWork;
 
 namespace Vehicle.Api.Repository
 {
     public class DriverRepository : Repositorybase<Driver> , IDriverRepository
     {
-        public DriverRepository(DatabaseContext context) : base(context)
+        public DriverRepository(DatabaseContext context, IUnitOfWork unitOfWork) : base(context, unitOfWork)
         {
 
         }

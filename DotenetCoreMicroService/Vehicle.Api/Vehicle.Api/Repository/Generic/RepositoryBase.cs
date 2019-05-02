@@ -8,23 +8,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Vehicle.Api.Repository.UnitOfWork;
 
 namespace Vehicle.Api.Repository.Generic
 {
     public class Repositorybase<T> : IRepositryBase<T> where T : class, IEntityBase, new()
     {
         private DatabaseContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public Repositorybase(DatabaseContext context)
+        public Repositorybase(DatabaseContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task Add(T entity)
         {
             EntityEntry dbEntityEntry = _context.Entry<T>(entity);
             await _context.Set<T>().AddAsync(entity);
-            await this.Commit();
+            await _unitOfWork.CompleteAsync();
         }
 
         public async Task Commit()
@@ -36,7 +39,8 @@ namespace Vehicle.Api.Repository.Generic
         {
             EntityEntry dbEntityEntry = _context.Entry<T>(entity);
             dbEntityEntry.State = EntityState.Deleted;
-            await this.Commit();
+            await _unitOfWork.CompleteAsync();
+
         }
 
         public async Task DeleteWhere(Expression<Func<T, bool>> predicate)
@@ -46,7 +50,8 @@ namespace Vehicle.Api.Repository.Generic
             {
                 _context.Entry<T>(entity).State = EntityState.Deleted;
             }
-            await this.Commit();
+            await _unitOfWork.CompleteAsync();
+
         }
 
         public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
@@ -75,7 +80,7 @@ namespace Vehicle.Api.Repository.Generic
         {
             EntityEntry dbEntityEntry = _context.Entry<T>(entity);
             dbEntityEntry.State = EntityState.Modified;
-            await this.Commit();
+            await _unitOfWork.CompleteAsync();
         }
     }
 }
