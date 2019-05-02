@@ -70,24 +70,25 @@ namespace Vehicle.Api.Services
         /// Get all drivers
         /// </summary>
         /// <returns></returns>
-        public async Task<BaseResponse<DriverResource>> GetAllAsync()
+        public async Task<List<BaseResponse<DriverResource>>> GetAllAsync()
         {
             try
             {
                 List<Driver> drivers = await repositoy.GetAll();
-                List<DriverResource> driverResources = new List<DriverResource>();
+                List<BaseResponse<DriverResource>> driverResources = new List<BaseResponse<DriverResource>>();
                 foreach (Driver driver in drivers)
                 {
                     var resource = mapper.Map<Driver, DriverResource>(driver);
-                    driverResources.Add(resource);
+                    BaseResponse<DriverResource> response = new BaseResponse<DriverResource>(resource);
+                    driverResources.Add(response);
                 }
 
-                return new BaseResponse<DriverResource>(driverResources[0]);
+                return new List<BaseResponse<DriverResource>>(driverResources);
             }
             catch(Exception ex)
             {
                 logger.LogError(ex, "Error when getting drivers from service");
-                return new BaseResponse<DriverResource>(ex.Message);
+                return new List<BaseResponse<DriverResource>>();
             }
         }
 
@@ -110,7 +111,7 @@ namespace Vehicle.Api.Services
             catch(Exception ex)
             {
                 logger.LogError("Error when adding a driver from service", ex);
-                return new BaseResponse<DriverResource>(ex.Message);
+                return new BaseResponse<DriverResource>($"{ex.Message}, {ex.InnerException.Message}");
             }
         }
 

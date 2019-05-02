@@ -10,7 +10,7 @@ namespace Vehicle.Api.Services.Interfaces
 {
     public interface IDriverService
     {
-        Task<BaseResponse<DriverResource>> GetAllAsync();
+        Task<List<BaseResponse<DriverResource>>> GetAllAsync();
         Task<BaseResponse<DriverResource>> GetAsync(string id);
         Task<BaseResponse<DriverResource>> PostDriverAsync(DriverResource driver);
         Task<BaseResponse<DriverResource>> UpdateDriver(DriverResource driver);

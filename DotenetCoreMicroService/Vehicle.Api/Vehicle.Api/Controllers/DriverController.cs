@@ -93,5 +93,30 @@ namespace Vehicle.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all driver details
+        /// </summary>
+        /// <returns></returns>
+        //[HttpGet]
+        public async Task<ActionResult> GetAllAsync()
+        {
+            try
+            {
+                var result = await driverService.GetAllAsync();
+                if (result == null)
+                {
+                    logger.LogError("Posting driver not successfull");
+                    return BadRequest("Bad request");
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error when posting driver");
+                return Ok(ex);
+            }
+        }
+
     }
 }
