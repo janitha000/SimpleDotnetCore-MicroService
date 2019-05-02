@@ -97,7 +97,7 @@ namespace Vehicle.Api.Controllers
         /// Get all driver details
         /// </summary>
         /// <returns></returns>
-        //[HttpGet]
+        [HttpGet]
         public async Task<ActionResult> GetAllAsync()
         {
             try
@@ -116,6 +116,25 @@ namespace Vehicle.Api.Controllers
                 logger.LogError(ex, "Error when posting driver");
                 return Ok(ex);
             }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> PutAsync(string id, [FromBody] DriverResource resource)
+        {
+            if (!ModelState.IsValid)
+            {
+                logger.LogError("ModelState is not valid");
+                return BadRequest(ModelState.GetErrorMessages());
+            }
+            var result = await driverService.UpdateDriverAsync(id, resource);
+
+            if (!result.Success)
+            {
+                logger.LogError("Posting driver not successfull");
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
     }

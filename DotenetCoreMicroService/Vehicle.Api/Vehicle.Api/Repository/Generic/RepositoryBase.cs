@@ -78,8 +78,9 @@ namespace Vehicle.Api.Repository.Generic
 
         public async Task Update(T entity)
         {
-            EntityEntry dbEntityEntry = _context.Entry<T>(entity);
-            dbEntityEntry.State = EntityState.Modified;
+            //EntityEntry dbEntityEntry = _context.Entry<T>(entity);
+            //dbEntityEntry.State = EntityState.Modified;
+            _context.Update(entity);
             await _unitOfWork.CompleteAsync();
         }
     }

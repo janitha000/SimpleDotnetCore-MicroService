@@ -120,14 +120,19 @@ namespace Vehicle.Api.Services
         /// </summary>
         /// <param name="driver"></param>
         /// <returns></returns>
-        public async Task<BaseResponse<DriverResource>> UpdateDriver(DriverResource driverResource)
+        public async Task<BaseResponse<DriverResource>> UpdateDriverAsync(string id, DriverResource driverResource)
         {
             try
             {
-                Driver driver = mapper.Map<DriverResource, Driver>(driverResource);
-                driver.GUID = driver.GetGUID();
-                await repositoy.Update(driver);
-                var resource = mapper.Map<Driver, DriverResource>(driver);
+                Driver driver = await repositoy.GetSingle(id);
+                if(driver == null)
+                    return  new BaseResponse<DriverResource>("Driver not found");
+
+                Driver updatedDriver = mapper.Map<DriverResource, Driver>(driverResource);
+
+                updatedDriver.GUID = updatedDriver.GetGUID();
+                await repositoy.Update(updatedDriver);
+                var resource = mapper.Map<Driver, DriverResource>(updatedDriver);
 
                 return new BaseResponse<DriverResource>(resource);
             }

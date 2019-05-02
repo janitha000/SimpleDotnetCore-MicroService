@@ -13,7 +13,7 @@ namespace Vehicle.Api.Services.Interfaces
         Task<List<BaseResponse<DriverResource>>> GetAllAsync();
         Task<BaseResponse<DriverResource>> GetAsync(string id);
         Task<BaseResponse<DriverResource>> PostDriverAsync(DriverResource driver);
-        Task<BaseResponse<DriverResource>> UpdateDriver(DriverResource driver);
+        Task<BaseResponse<DriverResource>> UpdateDriverAsync(string id, DriverResource driver);
         Task<bool> DeleteDriver(DriverResource driver);
 
     }
