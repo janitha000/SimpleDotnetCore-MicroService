@@ -35,16 +35,62 @@ namespace Vehicle.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> PostAsync([FromBody] DriverResource driverResource)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState.GetErrorMessages());
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    logger.LogError("ModelState is not valid");
+                    return BadRequest(ModelState.GetErrorMessages());
 
-            var result = await driverService.PostDriverAsync(driverResource);
+                }
 
-            if (!result.Success)
-                return BadRequest(result.Message);
+                var result = await driverService.PostDriverAsync(driverResource);
 
-            return Ok(result.ObjectEntity);
+                if (!result.Success)
+                {
+                    logger.LogError("Posting driver not successfull");
+                    return BadRequest(result.Message);
+                }
 
+                return Ok(result.ObjectEntity);
+            }
+            catch(Exception ex)
+            {
+                logger.LogError(ex, "Error when posting driver");
+                return Ok(ex);
+            }
+
+        }
+
+        /// <summary>
+        /// Get single driver
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult> Get(string id)
+        {
+            try
+            {
+                if (id == null)
+                    return BadRequest("ID is null");
+
+                var result = await driverService.GetAsync(id);
+
+                if(!result.Success)
+                {
+                    logger.LogError("Posting driver not successfull");
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result.ObjectEntity);
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error when posting driver");
+                return Ok(ex);
+            }
         }
 
     }

@@ -7,7 +7,7 @@ using Vehicle.Api.Resources;
 
 namespace Vehicle.Api.Communication
 {
-    public  class BaseResponse<T> where T : class , IBaseResource, new()
+    public  class BaseResponse<T> where T :  class, IBaseResource, new()
     {
         public bool Success { get; protected set; }
         public string Message { get; protected set; }

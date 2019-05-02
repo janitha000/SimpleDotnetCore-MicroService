@@ -30,18 +30,19 @@ namespace Vehicle.Api.Services
         /// </summary>
         /// <param name="driver"></param>
         /// <returns></returns>
-        public async Task<BaseResponse<DriverResource>> DeleteDriver(DriverResource driverResource)
+        public async Task<bool> DeleteDriver(DriverResource driverResource)
         {
             try
             {
+                Driver driver = mapper.Map<DriverResource, Driver>(driverResource);
                 await repositoy.Delete(driver);
-                return new ApiResult(true, "Driver deleted");
+                return true;
 
             }
             catch(Exception ex)
             {
                 logger.LogError("Error when deleting driver ", ex);
-                return new ApiResult(false, ex);
+                return false;
             }
         }
 
@@ -50,7 +51,7 @@ namespace Vehicle.Api.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<BaseResponse<DriverResource>> Get(string id)
+        public async Task<BaseResponse<DriverResource>> GetAsync(string id)
         {
             try
             {
@@ -74,12 +75,19 @@ namespace Vehicle.Api.Services
             try
             {
                 List<Driver> drivers = await repositoy.GetAll();
-                return new ApiResult(true, drivers);
+                List<DriverResource> driverResources = new List<DriverResource>();
+                foreach (Driver driver in drivers)
+                {
+                    var resource = mapper.Map<Driver, DriverResource>(driver);
+                    driverResources.Add(resource);
+                }
+
+                return new BaseResponse<DriverResource>(driverResources[0]);
             }
             catch(Exception ex)
             {
                 logger.LogError(ex, "Error when getting drivers from service");
-                return new ApiResult(false, ex); 
+                return new BaseResponse<DriverResource>(ex.Message);
             }
         }
 
@@ -115,14 +123,17 @@ namespace Vehicle.Api.Services
         {
             try
             {
+                Driver driver = mapper.Map<DriverResource, Driver>(driverResource);
                 driver.GUID = driver.GetGUID();
                 await repositoy.Update(driver);
-                return new ApiResult(true, driver);
+                var resource = mapper.Map<Driver, DriverResource>(driver);
+
+                return new BaseResponse<DriverResource>(resource);
             }
             catch(Exception ex)
             {
                 logger.LogError("Error when updating a driver from service", ex);
-                return new ApiResult(false, ex);
+                return new BaseResponse<DriverResource>(ex.Message);
             }
         }
     }
