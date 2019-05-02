@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AutoMapper;
+using Vehicle.Api.Repository.UnitOfWork;
 
 namespace Vehicle.Api
 {
@@ -44,7 +45,7 @@ namespace Vehicle.Api
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IDriverService, DriverService>();
 
-
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddAutoMapper();
 
