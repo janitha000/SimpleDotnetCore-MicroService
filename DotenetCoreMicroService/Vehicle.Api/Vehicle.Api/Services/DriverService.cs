@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vehicle.Api.Communication;
+using Vehicle.Api.Resources;
+using AutoMapper;
 
 namespace Vehicle.Api.Services
 {
@@ -13,11 +16,13 @@ namespace Vehicle.Api.Services
     {
         private readonly ILogger<DriverService> logger;
         private readonly IDriverRepository repositoy;
+        private readonly IMapper mapper;
 
-        public DriverService(IDriverRepository repo, ILogger<DriverService> _logger)
+        public DriverService(IDriverRepository repo, ILogger<DriverService> _logger, IMapper _mapper)
         {
             repositoy = repo ?? throw new ArgumentNullException(nameof(repo));
             logger = _logger ?? throw new ArgumentNullException(nameof(_logger));
+            mapper = _mapper ?? throw new ArgumentNullException(nameof(_mapper));
         }
 
         /// <summary>
@@ -25,7 +30,7 @@ namespace Vehicle.Api.Services
         /// </summary>
         /// <param name="driver"></param>
         /// <returns></returns>
-        public async Task<ApiResult> DeleteDriver(Driver driver)
+        public async Task<BaseResponse<DriverResource>> DeleteDriver(DriverResource driverResource)
         {
             try
             {
@@ -45,17 +50,18 @@ namespace Vehicle.Api.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ApiResult> Get(string id)
+        public async Task<BaseResponse<DriverResource>> Get(string id)
         {
             try
             {
                 Driver driver = await repositoy.GetSingle(id);
-                return new ApiResult(true, driver);
+                var resource = mapper.Map<Driver, DriverResource>(driver);
+                return new BaseResponse<DriverResource>(resource);
 
             }catch(Exception ex)
             {
                 logger.LogError("Error when getting driver ", ex);
-                return new ApiResult(false, ex);
+                return new BaseResponse<DriverResource>(ex.Message);
             }
         }
 
@@ -63,7 +69,7 @@ namespace Vehicle.Api.Services
         /// Get all drivers
         /// </summary>
         /// <returns></returns>
-        public async Task<ApiResult> GetAllAsync()
+        public async Task<BaseResponse<DriverResource>> GetAllAsync()
         {
             try
             {
@@ -82,18 +88,21 @@ namespace Vehicle.Api.Services
         /// </summary>
         /// <param name="driver"></param>
         /// <returns></returns>
-        public async Task<ApiResult> PostDriver(Driver driver)
+        public async Task<BaseResponse<DriverResource>> PostDriverAsync(DriverResource driverResource)
         {
             try
             {
+                Driver driver = mapper.Map<DriverResource, Driver>(driverResource);
+
                 driver.GUID = driver.GetGUID();
                 await repositoy.Add(driver);
-                return new ApiResult(true, driver);
+                var resource = mapper.Map<Driver, DriverResource>(driver);
+                return new BaseResponse<DriverResource>(resource);
             }
             catch(Exception ex)
             {
                 logger.LogError("Error when adding a driver from service", ex);
-                return new ApiResult(false, ex);
+                return new BaseResponse<DriverResource>(ex.Message);
             }
         }
 
@@ -102,7 +111,7 @@ namespace Vehicle.Api.Services
         /// </summary>
         /// <param name="driver"></param>
         /// <returns></returns>
-        public async Task<ApiResult> UpdateDriver(Driver driver)
+        public async Task<BaseResponse<DriverResource>> UpdateDriver(DriverResource driverResource)
         {
             try
             {

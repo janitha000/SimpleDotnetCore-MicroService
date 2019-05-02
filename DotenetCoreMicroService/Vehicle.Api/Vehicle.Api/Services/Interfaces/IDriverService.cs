@@ -3,16 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vehicle.Api.Resources;
+using Vehicle.Api.Communication;
 
 namespace Vehicle.Api.Services.Interfaces
 {
     public interface IDriverService
     {
-        Task<ApiResult> GetAllAsync();
-        Task<ApiResult> Get(string id);
-        Task<ApiResult> PostDriver(Driver driver);
-        Task<ApiResult> UpdateDriver(Driver driver);
-        Task<ApiResult> DeleteDriver(Driver driver);
+        Task<BaseResponse<DriverResource>> GetAllAsync();
+        Task<BaseResponse<DriverResource>> Get(string id);
+        Task<BaseResponse<DriverResource>> PostDriverAsync(DriverResource driver);
+        Task<BaseResponse<DriverResource>> UpdateDriver(DriverResource driver);
+        Task<BaseResponse<DriverResource>> DeleteDriver(DriverResource driver);
 
     }
 }

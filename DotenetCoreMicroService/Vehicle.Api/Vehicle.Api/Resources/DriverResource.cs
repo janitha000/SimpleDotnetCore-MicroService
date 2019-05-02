@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Vehicle.Api.Resources
 {
-    public class DriverResource
+    public class DriverResource : IBaseResource
     {
         public string GUID { get; set; }
         public string FirstName { get; set; }

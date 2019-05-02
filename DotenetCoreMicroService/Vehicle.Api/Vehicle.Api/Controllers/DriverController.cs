@@ -10,6 +10,7 @@ using Vehicle.Api.Entities;
 using Vehicle.Api.Extensions;
 using Vehicle.Api.Repository.Interfaces;
 using Vehicle.Api.Resources;
+using Vehicle.Api.Services.Interfaces;
 
 namespace Vehicle.Api.Controllers
 {
@@ -17,24 +18,33 @@ namespace Vehicle.Api.Controllers
     [ApiController]
     public class DriverController : ControllerBase
     {
-        private readonly IDriverRepository repository;
+        private readonly IDriverService driverService;
         private readonly ILogger logger;
-        private readonly IMapper mapper;
 
-        public DriverController(IDriverRepository repo, ILogger<DriverController> _logger, IMapper _mapper)
+        public DriverController(IDriverService _service, ILogger<DriverController> _logger)
         {
-            repository = repo;
-            logger = _logger;
-            mapper = _mapper;
+            driverService = _service ?? throw new ArgumentNullException(nameof(_service));
+            logger  = _logger ?? throw new ArgumentNullException(nameof(_logger));
         }
 
+        /// <summary>
+        /// Post drivers
+        /// </summary>
+        /// <param name="driverResource"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> PostAsync([FromBody] DriverResource resource)
+        public async Task<ActionResult> PostAsync([FromBody] DriverResource driverResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var driver = mapper.Map<DriverResource, Driver>(resource);
+            var result = await driverService.PostDriverAsync(driverResource);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            return Ok(result.ObjectEntity);
+
         }
 
     }
