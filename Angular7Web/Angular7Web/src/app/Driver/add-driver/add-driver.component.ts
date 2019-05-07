@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+import {DriverService } from '../driver.service';
 
 @Component({
   selector: 'app-add-driver',
@@ -10,7 +11,7 @@ export class AddDriverComponent implements OnInit {
 
   angForm: FormGroup;
 
-  constructor(private fb : FormBuilder) {
+  constructor(private fb : FormBuilder, private driverService : DriverService) {
     this.createForm();
    }
 
@@ -20,6 +21,11 @@ export class AddDriverComponent implements OnInit {
       driver_LastName: ['', Validators.required ],
       driver_NIC: ['', Validators.required ]
      })
+   }
+
+   addDriver(driver_firstName,driver_LastName, driver_NIC ){
+     console.log("Clicked add driver");
+    this.driverService.addDriver(driver_firstName, driver_LastName, driver_NIC)
    }
 
   ngOnInit() {

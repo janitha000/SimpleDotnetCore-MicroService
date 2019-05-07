@@ -118,6 +118,12 @@ namespace Vehicle.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Put drivers
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="resource"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<ActionResult> PutAsync(string id, [FromBody] DriverResource resource)
         {

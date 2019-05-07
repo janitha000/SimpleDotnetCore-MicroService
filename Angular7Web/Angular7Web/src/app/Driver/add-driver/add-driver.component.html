@@ -29,10 +29,12 @@
         </div>
       </div>
       <div class="form-group">
-        <button type="submit" 
-        [disabled]="angForm.pristine || angForm.invalid" 
-        class="btn btn-primary">Add Driver</button>
-      </div>
+        <button (click)="addDriver(driver_firstName.value, driver_LastName.value, driver_NIC.value)"
+            [disabled]="angForm.pristine || angForm.invalid" 
+            class="btn btn-primary">
+            Add Driver
+         </button>
+    </div>
     </form>
   </div>
 </div>

@@ -3,12 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EditDriverComponent } from './Driver/edit-driver/edit-driver.component';
 import { GetDriverComponent } from './Driver/get-driver/get-driver.component';
 import { AddDriverComponent } from './Driver/add-driver/add-driver.component';
+import { DriverService } from './Driver/driver.service';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,10 @@ import { AddDriverComponent } from './Driver/add-driver/add-driver.component';
     BrowserModule,
     AppRoutingModule,
     SlimLoadingBarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [DriverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

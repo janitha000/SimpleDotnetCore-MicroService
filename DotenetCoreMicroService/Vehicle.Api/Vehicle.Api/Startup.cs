@@ -36,6 +36,7 @@ namespace Vehicle.Api
             services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors();
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
@@ -47,7 +48,6 @@ namespace Vehicle.Api
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddAutoMapper();
 
             services.AddSwaggerGen(options =>
             {
@@ -73,6 +73,12 @@ namespace Vehicle.Api
             {
                 app.UseHsts();
             }
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             app.UseHttpsRedirection();
             app.UseMvc();
