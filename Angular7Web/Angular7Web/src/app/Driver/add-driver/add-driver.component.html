@@ -1,20 +1,37 @@
 <div class="card">
   <div class="card-body">
-    <form>
+    <form [formGroup]="angForm" novalidate>
       <div class="form-group">
-        <label class="col-md-4">Driver Frist Name</label>
-        <input type="text" class="form-control" />
+        <label class="col-md-4">Diver First Name</label>
+        <input type="text" class="form-control" formControlName="driver_firstName" #driver_firstName />
+      </div>
+      <div *ngIf="angForm.controls['driver_firstName'].invalid && (angForm.controls['driver_firstName'].dirty || angForm.controls['driver_firstName'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['driver_firstName'].errors.required">
+          Driver Fisrt Name is required.
+        </div>
       </div>
       <div class="form-group">
         <label class="col-md-4">Driver Last Name </label>
-        <input type="text" class="form-control" />
+        <input type="text" class="form-control" formControlName="driver_LastName" #driver_LastName />
+      </div>
+      <div *ngIf="angForm.controls['driver_LastName'].invalid && (angForm.controls['driver_LastName'].dirty || angForm.controls['driver_LastName'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['driver_LastName'].errors.required">
+          Driver Last Name is required.
+        </div>
       </div>
       <div class="form-group">
         <label class="col-md-4">Driver NIC Number </label>
-        <input type="text" class="form-control" />
+        <input type="text" class="form-control" formControlName="driver_NIC" #driver_NIC />
+      </div>
+      <div *ngIf="angForm.controls['driver_NIC'].invalid && (angForm.controls['driver_NIC'].dirty || angForm.controls['driver_NIC'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['driver_NIC'].errors.required">
+          Driver NIC is required.
+        </div>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">Add Driver</button>
+        <button type="submit" 
+        [disabled]="angForm.pristine || angForm.invalid" 
+        class="btn btn-primary">Add Driver</button>
       </div>
     </form>
   </div>
