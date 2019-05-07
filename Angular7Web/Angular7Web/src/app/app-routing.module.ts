@@ -6,9 +6,9 @@ import {EditDriverComponent } from './Driver/edit-driver/edit-driver.component';
 import {GetDriverComponent } from './Driver/get-driver/get-driver.component';
 
 const routes: Routes = [
-  { path : 'dirver/create', component : AddDriverComponent},
-  { path : 'dirver/edit/:id', component : EditDriverComponent},
-  { path : 'dirver', component : GetDriverComponent},
+  { path : 'driver/create', component : AddDriverComponent},
+  { path : 'driver/edit/:id', component : EditDriverComponent},
+  { path : 'driver', component : GetDriverComponent},
 ];
 
 @NgModule({
